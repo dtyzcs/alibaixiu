@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>阿里百秀-发现生活，发现美!</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/vendors/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="assets/vendors/nprogress/nprogress.css">
+  <script src="/assets/vendors/art-template/template-web.js"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="topnav">
+      <ul class="categoryBOx">
+
+      </ul>
+    </div>
+    <div class="header">
+      <h1 class="logo"><a href="index.html"><img src="assets/img/logo.png" alt=""></a></h1>
+      <ul class="nav categoryBOx">
+
+      </ul>
+      <div class="search">
+        <form>
+          <input type="text" class="keys" placeholder="输入关键字">
+          <input type="submit" class="btn" value="搜索">
+        </form>
+      </div>
+    </div>
+    <div class="aside">
+      <div class="widgets">
+        <h4>搜索</h4>
+        <div class="body search">
+          <form>
+            <input type="text" class="keys" placeholder="输入关键字">
+            <input type="submit" class="btn" value="搜索">
+          </form>
+        </div>
+      </div>
+      <div class="widgets">
+        <h4>随机推荐</h4>
+        <ul class="body random" id="random">
+          
+        </ul>
+      </div>
+      <div class="widgets">
+        <h4>最新评论</h4>
+        <ul class="body discuz" id="newComments">
+          
+        </ul>
+      </div>
+    </div>
+    <div class="content">
+      <div class="panel new" id="articleBox">
+
+      </div>
+    </div>
+    <div class="footer">
+      <p>© 2016 XIU主题演示 本站主题由 themebetter 提供</p>
+    </div>
+  </div>
+
+  <!-- 分类列表模板 -->
+  <script type="text/html" id="tpl-Category">
+    {{each data}}
+    <li><a href="list.html?id={{$value._id}}"><i class="fa {{$value.className}}"></i>{{$value.title}}</a></li>
+    {{/each}}
+  </script>
+
+  <!-- 文章列表模板 -->
+  <script type="text/html" id="tpl-article">
+    <h3>{{title}}</h3>
+    {{each data}}
+    <div class="entry">
+      <div class="head">
+        <a href="detail.html?id={{$value._id}}">{{$value.title}}</a>
+      </div>
+      <div class="main">
+        <p class="info">{{$value.author.nickName}} 发表于 {{$value.createAt ? $value.createAt.split('T')[0] : ''}}</p>
+        <p class="brief">
+          {{$value.content}}
+        </p>
+        <p class="extra">
+          <span class="reading">阅读({{$value.meta.views}})</span>
+          <span class="comment">评论({{$value.meta.comments}})</span>
+          <a href="javascript:;" class="like" data-id="{{$value._id}}">
+            <i class="fa fa-thumbs-up"></i>
+            <span>赞({{$value.meta.likes}})</span>
+          </a>
+          <a href="list.html?id={{$value.category._id}}" class="tags">
+            分类：<span>{{$value.category.title}}</span>
+          </a>
+        </p>
+        <a href="detail.html?id={{$value._id}}" class="thumb">
+          <img src="{{$value.thumbnail ? $value.thumbnail : '/uploads/hots_2.jpg'}}" alt="">
+        </a>
+      </div>
+    </div>
+    {{/each}}
+  </script>
+
+  <!-- 随机推荐模板 -->
+  <script id="tpl-random" type="text/html">
+    {{each data}}
+    <li>
+      <a href="detail.html?id={{$value._id}}">
+        <p class="title">{{$value.title}}</p>
+        <p class="reading">阅读({{$value.meta.views}})</p>
+        <div class="pic">
+          <img src="{{$value.thumbnail ? $value.thumbnail : '/uploads/widget_1.jpg'}}" alt="">
+        </div>
+      </a>
+    </li>
+    {{/each}}
+  </script>
+
+  <!-- 最新评论模板 -->
+  <script type="text/html" id="tpl-newComments">
+    {{each data}}
+    <li>
+      <a href="detail.html?id={{$value.post}}">
+        <div class="avatar">
+          <img src="{{$value.author.avatar ? $value.author.avatar : '/uploads/avatar_1.jpg'}}" alt="">
+        </div>
+        <div class="txt">
+          <p>
+            <span>{{$value.author.nickName}}</span>{{$value.createAt ? $value.createAt.split('T')[0] : ''}}说:
+          </p>
+          <p>{{$value.content}}</p>
+        </div>
+      </a>
+    </li>
+    {{/each}}
+  </script>
+
+  <script src="assets/vendors/jquery/jquery.js"></script>
+  <script src="assets/vendors/nprogress/nprogress.js"></script>
+  <script src="/assets/js/home-common.js"></script>
+  <script src="/assets/js/list.js"></script>
+</body>
+
+</html>
